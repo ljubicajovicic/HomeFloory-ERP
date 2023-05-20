@@ -1,0 +1,23 @@
+<div class="row" *ngIf="product">
+    <div class="col-6">
+        <img src="{{product.urlSlike}}" alt="{{product.naziv}}" class="w-100" />
+    </div>
+    <div class="col-6 mt-2">
+        <h2>{{product.naziv}}</h2>
+        <p class="mt-4">Cena po m2: {{product.cenaPoM2}} rsd</p>
+        <p>Paket po m2: {{product.paketPoM2}}</p>
+        <p>Dimenzija: {{product.dimenzija}}</p>
+        <p>Nijansa: {{product.nijansa}} </p>
+        <div class="d-flex justify-content-start align-items-center">
+            <i class="fa fa-minus-circle text-warning me-2" style="cursor: pointer; font-size: 2em;"></i>
+            <span class="font-weight-bold" style="font-size: 1.5em;">2</span>
+            <i class="fa fa-plus-circle text-warning ms-2" style="cursor: pointer; font-size: 2em;"></i>
+            <button class="btn btn-outline-secondary ms-4">Dodaj u korpu</button>
+        </div>
+        <div class="row mt-4">
+            <h3>Opis:</h3>
+            <p>{{product.opis}}</p>
+        </div>
+    </div>
+
+</div>
