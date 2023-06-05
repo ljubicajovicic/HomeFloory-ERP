@@ -13,13 +13,22 @@ public partial class Korpa
     [DefaultValue(0)]
     public decimal? UkupnaCena { get; set; }
 
+    public DateTime? Datum { get; set; }
+
+    public string? Status { get; set; }
+
+    public string? PaymentIntent { get; set; }
+
+    public string? ClientSecret { get; set; }
+
+    [DefaultValue(1)]
     public decimal IdPlacanje { get; set; }
 
     public decimal IdDostava { get; set; }
 
-    public virtual ICollection<DodatiProizvodi> DodatiProizvodi { get; } = new List<DodatiProizvodi>();
+    public virtual ICollection<DodatiProizvodi> DodatiProizvodi { get; set; } = new List<DodatiProizvodi>();
 
-    public virtual Dostava IdDostavaNavigation { get; set; } = null!;
+    public virtual Dostava? IdDostavaNavigation { get; set; } = null!;
 
-    public virtual Placanje IdPlacanjeNavigation { get; set; } = null!;
+    public virtual Placanje? IdPlacanjeNavigation { get; set; } = null!;
 }

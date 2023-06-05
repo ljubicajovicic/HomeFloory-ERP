@@ -9,10 +9,18 @@ namespace HomeFloory.Models.KorpaDto
         public decimal? CenaDostave { get; set; }
 
         [DefaultValue(0)]
-        public decimal? UkupnaCena { get; set; }
+        public decimal UkupnaCena { get; set; }
 
+
+        public List<DodatiProizvodi> DodatiProizvodi { get; set; }
+
+        public string? PaymentIntent { get; set; }
+
+        public string? ClientSecret { get; set; }
+
+        [DefaultValue(1)]
         public decimal IdPlacanje { get; set; }
-
+        [DefaultValue(1)]
         public decimal IdDostava { get; set; }
     }
 }

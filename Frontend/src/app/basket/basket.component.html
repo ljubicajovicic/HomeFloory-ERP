@@ -1,0 +1,28 @@
+<div class="container" style="padding-top: 150px">
+    <div *ngIf="(basketService.basketSource$ | async) === null">
+        <p>Nema stavki u korpi</p>
+    </div>
+
+    <ng-container *ngIf="(basketService.basketSource$ | async)">
+        <div class="container">
+
+            <div class="row">
+                <div class="table-responsive">
+                    <app-basket-summary (addItem)="incrementQuantity($event)"
+                        (removeItem)="removeItem($event)"></app-basket-summary>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-6 offset-6">
+                    <app-order-totals></app-order-totals>
+                    <div class="d-grid">
+                        <a routerLink="/checkout" class="btn btn-outline primary py-2">
+                            Nastavi porudzbinu
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

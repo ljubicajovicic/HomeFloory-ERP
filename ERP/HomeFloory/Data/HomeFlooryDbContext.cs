@@ -165,6 +165,16 @@ public partial class HomeFlooryDbContext : DbContext
             entity.Property(e => e.IdDostava).HasColumnType("numeric(5, 0)");
             entity.Property(e => e.IdPlacanje).HasColumnType("numeric(5, 0)");
             entity.Property(e => e.UkupnaCena).HasColumnType("decimal(10, 2)");
+            entity.Property(e => e.Datum).HasColumnType("date");
+            entity.Property(e => e.Status)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+            entity.Property(e => e.PaymentIntent)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.ClientSecret)
+                .HasMaxLength(150)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.IdDostavaNavigation).WithMany(p => p.Korpe)
                 .HasForeignKey(d => d.IdDostava)

@@ -1,0 +1,24 @@
+<div class="bg-light px-4 py-3 text-uppercase fw-bold">
+    Porudzbina
+</div>
+
+<div class="p-4">
+    <p class="fst-italix mb-4">
+        Cena dostave ce biti uracunata na osnovu izbora, ukoliko je ukupna cena proizvoda veca od 15.000 dostava je
+        besplatna.
+    </p>
+    <ul class="list-unstyled mb-4">
+        <li class="d-flex justify-content-between py-3 border-bottom">
+            <strong class="text-muted">Cena: </strong>
+            <strong> {{totals.subtotal | currency}}</strong>
+        </li>
+        <li class="d-flex justify-content-between py-3 border-bottom">
+            <strong class="text-muted">Dostava: </strong>
+            <strong> {{totals.shipping | currency}}</strong>
+        </li>
+        <li class="d-flex justify-content-between py-3 border-bottom">
+            <strong class="text-muted">Ukupna cena: </strong>
+            <strong> {{totals.total | currency}}</strong>
+        </li>
+    </ul>
+</div>

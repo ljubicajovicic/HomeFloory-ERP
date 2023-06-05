@@ -5,6 +5,7 @@ using HomeFloory.Repositories.DostavaRepo;
 using HomeFloory.Repositories.KategorijaRepo;
 using HomeFloory.Repositories.KorisnikRepo;
 using HomeFloory.Repositories.KorpaRepo;
+using HomeFloory.Repositories.Payment;
 using HomeFloory.Repositories.PlacanjeRepo;
 using HomeFloory.Repositories.ProizvodjacRepo;
 using HomeFloory.Repositories.ProizvodRepo;
@@ -62,6 +63,7 @@ builder.Services.AddScoped<IKorpaRepo, KorpaRepo>();
 builder.Services.AddScoped<IDodatiProizvodiRepo, DodatiProizvodiRepo>();
 builder.Services.AddScoped<IPlacanjeRepo, PlacanjeRepo>();
 builder.Services.AddScoped<IKorisnikRepo, KorisnikRepo>();
+builder.Services.AddScoped<IPaymentRepo, PaymentRepo>();
 
 builder.Services.AddControllers().AddJsonOptions(x =>
     x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);

@@ -1,0 +1,22 @@
+<div class="mt-4" *ngIf="checkoutForm" [formGroup]="checkoutForm">
+    <div class="row" formGroupName="deliveryForm">
+        <div class="col-6 form-group" *ngFor="let method of deliveryMethods">
+            <input type="radio" class="form-check-input" value="{{method.idDostava}}" id="{{method.idDostava}}"
+                formControlName="tipDostave" (click)="setShippingPrice(method)">
+            <label for="{{method.idDostava}}" class="form-check-label ms-2 mb-3">
+                <strong>{{method.nazivSluzbe}} - {{method.cenaUsluge | currency}}</strong>
+                <br>
+                <span>{{method.rokDostave}}</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+<div class="d-flex justify-content-between flex-row mb-5">
+    <button class="btn btn-outline-secondary" cdkStepperPrevious>
+        <i class=" fa fa-angle-left"></i> Nazad na adresu
+    </button>
+    <button class="btn btn-outline-secondary" cdkStepperNext>
+        Predji na pregled <i class="fa fa-angle-right"></i>
+    </button>
+</div>

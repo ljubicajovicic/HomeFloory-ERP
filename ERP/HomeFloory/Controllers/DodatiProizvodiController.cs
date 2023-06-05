@@ -53,7 +53,7 @@ namespace HomeFloory.Controllers
         //metoda aktivira triger za racunanje ukupne cene proizvoda u korpi, na osnovu unesene cene i kolicine
         //kako azurira obelezje ukupna cena u okviru tabele korpa, takodje se pokrece i drugi triger
         [HttpPost]
-        [Authorize(Roles = "Registrovan")]
+        //[Authorize(Roles = "Registrovan")]
         public async Task<IActionResult> AddDodatiProizvodi(AddDodatiProizvodiDto addDodatiProizvodiDto)
         {
             try
@@ -86,7 +86,7 @@ namespace HomeFloory.Controllers
 
         [HttpPut]
         [Route("{IdProizvod}/{IdKorpa}")]
-        [Authorize(Roles = "Registrovan")]
+        //[Authorize(Roles = "Registrovan")]
         public async Task<IActionResult> UpdateDodatiProizvodi(decimal IdProizvod,decimal IdKorpa, UpdateDodatiProizvodiDto updateDodatiProizvodiDto)
         {
             try

@@ -1,4 +1,5 @@
-﻿using HomeFloory.Data;
+﻿using AutoMapper;
+using HomeFloory.Data;
 using HomeFloory.Models;
 using HomeFloory.Models.KorisnikDto;
 using HomeFloory.Repositories.KorisnikRepo;
@@ -14,7 +15,7 @@ using System.Text;
 namespace HomeFloory.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/")]
     public class PrijavaController : Controller
     {
         private readonly IConfiguration _config;
@@ -26,7 +27,7 @@ namespace HomeFloory.Controllers
             this.homeFlooryDbContext = homeFlooryDbContext;
         }
 
-        [HttpPost]
+        [HttpPost("Prijava")]
         public IActionResult Login([FromBody] LoginDto loginDto )
         {
             var korisnik = Authenticate(loginDto);
@@ -35,9 +36,34 @@ namespace HomeFloory.Controllers
             {
 
                 var token = Generate(korisnik);
-                return Ok(token);
+                return Ok(new { token });
             }
             return NotFound("Uneli ste pogresan email ili lozinku!");
+        }
+
+        [HttpPost("Registracija")]
+        public async Task<IActionResult> AddKorisnik(AddKorisnikDto addKorisnikDto)
+        {
+            var korisnik = new Korisnik()   
+            {
+                    Ime = addKorisnikDto.Ime,
+                    Prezime = addKorisnikDto.Prezime,
+                    DatumRodjenja = addKorisnikDto.DatumRodjenja,
+                    Kontakt = addKorisnikDto.Kontakt,
+                    Email = addKorisnikDto.Email,
+                    Lozinka = addKorisnikDto.Lozinka,
+                    IdAdresaIsporuke = addKorisnikDto.IdAdresaIsporuke,
+                    IdUloga = 1
+            };
+
+            homeFlooryDbContext.Korisnici.Add(korisnik);
+            homeFlooryDbContext.SaveChanges();
+
+            // Generate the token
+            var token = Generate(korisnik);
+
+            // Return the token in the response
+            return Ok(new { token });
         }
 
         private string Generate(Korisnik korisnik)

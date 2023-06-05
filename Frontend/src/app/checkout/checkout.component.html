@@ -1,0 +1,24 @@
+<div class="container " style="padding-top: 150px">
+    <div class="row">
+        <div class="col-8">
+            <app-stepper #appStepper>
+                <cdk-step [label]="'Adresa'" [completed]="checkoutForm.get('addressForm')?.valid">
+                    <app-chekout-adress [checkoutForm]="checkoutForm"
+                        (submitForm)="onFormSubmit()"></app-chekout-adress>
+                </cdk-step>
+                <cdk-step [label]="'Dostava'" [completed]="checkoutForm.get('deliveryForm')?.valid">
+                    <app-chekout-delivery [checkoutForm]="checkoutForm"></app-chekout-delivery>
+                </cdk-step>
+                <cdk-step [label]="'Pregled'">
+                    <app-chekout-review [appStepper]="appStepper"></app-chekout-review>
+                </cdk-step>
+                <cdk-step [label]="'Placanje'">
+                    <app-chekout-payment [checkoutForm]="checkoutForm"></app-chekout-payment>
+                </cdk-step>
+            </app-stepper>
+        </div>
+        <div class="col-4 mt-1">
+            <app-order-totals></app-order-totals>
+        </div>
+    </div>
+</div>

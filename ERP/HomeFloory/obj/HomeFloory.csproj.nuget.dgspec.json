@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Acer\\source\\repos\\HomeFloory\\HomeFloory\\HomeFloory.csproj": {}
+    "C:\\Users\\Acer\\Desktop\\Projekat-erp\\ERP\\HomeFloory\\HomeFloory.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Acer\\source\\repos\\HomeFloory\\HomeFloory\\HomeFloory.csproj": {
+    "C:\\Users\\Acer\\Desktop\\Projekat-erp\\ERP\\HomeFloory\\HomeFloory.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Acer\\source\\repos\\HomeFloory\\HomeFloory\\HomeFloory.csproj",
+        "projectUniqueName": "C:\\Users\\Acer\\Desktop\\Projekat-erp\\ERP\\HomeFloory\\HomeFloory.csproj",
         "projectName": "HomeFloory",
-        "projectPath": "C:\\Users\\Acer\\source\\repos\\HomeFloory\\HomeFloory\\HomeFloory.csproj",
+        "projectPath": "C:\\Users\\Acer\\Desktop\\Projekat-erp\\ERP\\HomeFloory\\HomeFloory.csproj",
         "packagesPath": "C:\\Users\\Acer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Acer\\source\\repos\\HomeFloory\\HomeFloory\\obj\\",
+        "outputPath": "C:\\Users\\Acer\\Desktop\\Projekat-erp\\ERP\\HomeFloory\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Acer\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -77,6 +77,10 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[7.0.5, )"
+            },
+            "Stripe.net": {
+              "target": "Package",
+              "version": "[41.19.0, )"
             },
             "Swashbuckle.AspNetCore": {
               "target": "Package",

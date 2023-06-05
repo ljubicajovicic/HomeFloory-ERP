@@ -11,5 +11,8 @@
         public decimal? Kolicina { get; set; }
 
         public decimal? KolicinaPoM2 { get; set; }
+
+
+        public virtual Proizvod IdProizvodNavigation { get; set; } = null!;
     }
 }

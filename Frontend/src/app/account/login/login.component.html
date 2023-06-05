@@ -1,0 +1,19 @@
+<div class="align-items-center d-flex justify-content-center mt-50" style="padding-top: 300px; height:480px;">
+    <div class="col-5">
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <div class="text-center mb-6">
+                <h1 class="mb-3">Prijava</h1>
+            </div>
+
+            <app-text-inputs [formControl]="loginForm.controls['email']" [label]="'Email'"></app-text-inputs>
+            <app-text-inputs [formControl]="loginForm.controls['lozinka']" [type]="'password'"
+                [label]="'Lozinka'"></app-text-inputs>
+
+
+            <div class="d-grid">
+                <button [disabled]="loginForm.invalid" class="btn btn-lg btn-secondary mt-3"
+                    type="submit">Potvrdi</button>
+            </div>
+        </form>
+    </div>
+</div>

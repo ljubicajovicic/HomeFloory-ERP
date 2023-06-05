@@ -7,5 +7,6 @@
         public decimal? Kolicina { get; set; }
 
         public decimal? KolicinaPoM2 { get; set; }
+
     }
 }

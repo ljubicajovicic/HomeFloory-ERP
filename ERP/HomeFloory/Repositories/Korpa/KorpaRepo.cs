@@ -41,12 +41,13 @@ namespace HomeFloory.Repositories.KorpaRepo
                 homeFlooryDbContext.Korpe
                 .Include(x => x.IdPlacanjeNavigation)
                 .Include(x => x.IdDostavaNavigation)
+                .Include(x => x.DodatiProizvodi)
                 .ToListAsync();
         }
 
         public async Task<Korpa> GetKorpa(decimal IdKorpa)
         {
-            return await homeFlooryDbContext.Korpe.FirstOrDefaultAsync(x => x.IdKorpa == IdKorpa);
+            return await homeFlooryDbContext.Korpe.Include(x => x.DodatiProizvodi).FirstOrDefaultAsync(x => x.IdKorpa == IdKorpa);
         }
 
         public async Task<Korpa> UpdateKorpa(decimal IdKorpa, Korpa korpa)
@@ -58,6 +59,8 @@ namespace HomeFloory.Repositories.KorpaRepo
             }
             existingKorpa.CenaDostave = korpa.CenaDostave;
             existingKorpa.UkupnaCena = korpa.UkupnaCena;
+
+            await homeFlooryDbContext.SaveChangesAsync();
             return existingKorpa;
         }
     }

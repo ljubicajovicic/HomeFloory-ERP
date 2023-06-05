@@ -24,7 +24,7 @@ namespace HomeFloory.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllKorisnik()
         {
             var korisnik = await korisnikRepo.GetAllKorisnik();
@@ -38,7 +38,7 @@ namespace HomeFloory.Controllers
 
         [HttpGet]
         [Route("{IdKorisnik}")]
-        [Authorize(Roles = "Registrovan, Admin")]
+        //[Authorize(Roles = "Registrovan, Admin")]
         public async Task<IActionResult> GetKorisnik(decimal IdKorisnik)
         {
             var korisnik = await korisnikRepo.GetKorisnik(IdKorisnik);
@@ -64,7 +64,7 @@ namespace HomeFloory.Controllers
                     Email = addKorisnikDto.Email,
                     Lozinka = addKorisnikDto.Lozinka,
                     IdAdresaIsporuke = addKorisnikDto.IdAdresaIsporuke,
-                    IdUloga = addKorisnikDto.IdUloga
+                    IdUloga = 1
                 };
                 korisnik = await korisnikRepo.AddKorisnik(korisnik);
                 var korisnikDto = mapper.Map<Korisnik>(korisnik);

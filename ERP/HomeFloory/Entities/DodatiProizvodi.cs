@@ -15,7 +15,7 @@ public partial class DodatiProizvodi
 
     public decimal? KolicinaPoM2 { get; set; }
 
-    public virtual Korpa IdKorpaNavigation { get; set; } = null!;
+    public virtual Korpa? IdKorpaNavigation { get; set; } = null!;
 
-    public virtual Proizvod IdProizvodNavigation { get; set; } = null!;
+    public virtual Proizvod? IdProizvodNavigation { get; set; } = null!;
 }

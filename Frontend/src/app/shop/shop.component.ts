@@ -4,7 +4,6 @@ import { ShopService } from './shop.service';
 import { Kategorija } from '../shared/models/kategorija';
 import { Proizvodjac } from '../shared/models/proizvodjac';
 import { ShopParam } from '../shared/models/shopParam';
-import { CountParam } from '../shared/models/countParam';
 
 @Component({
   selector: 'app-shop',

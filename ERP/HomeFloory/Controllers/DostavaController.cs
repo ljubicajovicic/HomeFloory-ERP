@@ -22,7 +22,7 @@ namespace HomeFloory.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Registrovan")]
         public async Task<IActionResult> GetAllDostava()
         {
             var dostava = await dostavaRepo.GetAllDostava();
@@ -49,7 +49,7 @@ namespace HomeFloory.Controllers
         }
 
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Registrovan")]
         public async Task<IActionResult> AddDostava(AddDostavaDto addDostavaDto)
         {
             try
@@ -73,7 +73,7 @@ namespace HomeFloory.Controllers
 
         [HttpPut]
         [Route("{IdDostava}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Registrovan")]
         public async Task<IActionResult> UpdateDostava(decimal IdDostava,UpdateDostavaDto updateDostavaDto)
         {
             try

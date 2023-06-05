@@ -46,6 +46,10 @@ namespace HomeFloory.Profiles
 
             CreateMap<Korisnik, KorisnikDto>()
                 .ReverseMap();
+
+            CreateMap<Korpa, KorpaDto>()
+            .ForMember(dest => dest.DodatiProizvodi, opt => opt.MapFrom(src => src.DodatiProizvodi))
+            .ReverseMap();
         }
     }
 }

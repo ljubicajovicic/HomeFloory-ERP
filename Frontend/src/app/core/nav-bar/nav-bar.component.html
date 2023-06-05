@@ -8,11 +8,37 @@ bg-white border-bottom fixed-top">
         <a class="p-3" routerLink="/contact" routerLinkActive="active">O nama</a>
     </nav>
     <div class="d-flex align-items-center fs-6">
-        <a class="position-relative">
+        <a routerLink="/basket" class="position-relative">
             <i class="fa fa-shopping-cart fa-2x me-4 text-dark"></i>
-            <div class="cart-no">5</div>
+            <div *ngIf="(basketService.basketSource$ | async) as basket" class="cart-no">
+                {{getCount(basket.dodatiProizvodi)}}
+                <!--{{basket.dodatiProizvodi.length}}-->
+            </div>
         </a>
-        <a href="" class="p-3 text-dark text-decoration-none">Prijava</a>
-        <a href="" class="p-3 text-dark text-decoration-none">Registracija</a>
+        <ng-container *ngIf="(accountService.kor$ | async) === null">
+            <a routerLink="/account/login" class="p-3 text-dark text-decoration-none">Prijava</a>
+            <a routerLink="/account/register" class="p-3 text-dark text-decoration-none">Registracija</a>
+        </ng-container>
+        <ng-container *ngIf="accountService.kor$ | async as user">
+            <div class="dropdown ms-3 me-5" style="cursor: pointer;" dropdown>
+                <a dropdownToggle class="dropdown-toggle">
+                    <strong>Dobrodosli</strong>
+                </a>
+                <ul *dropdownMenu class="dropdown-menu dropdown-menu-right">
+                    <li class="py-1">
+                        <a routerLink="/orders" class="dropdown-item">
+                            <i class="fa fa-history me-3"></i>Porudzbine
+                        </a>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                    <li class="py-1">
+                        <a (click)="accountService.logout()" class="dropdown-item">
+                            <i class="fa fa-sign-out me-3"></i>Odjava
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </ng-container>
     </div>
 </header>

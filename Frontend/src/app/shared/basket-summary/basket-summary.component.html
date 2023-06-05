@@ -1,0 +1,53 @@
+<table style="width: 100%" *ngIf="(basketService.basketSource$ | async) as basket">
+    <thead class=" text-uppercase" [class.bg-light]="isBasket">
+        <tr>
+            <th>
+                <div class="py-2">Proizvod</div>
+            </th>
+            <th>
+                <div class="py-2">Cena</div>
+            </th>
+            <th [class.text-center]="!isBasket">
+                <div class="py-2">Kolicina</div>
+            </th>
+            <th>
+                <div class="py-2">Ukupno</div>
+            </th>
+            <th *ngIf="isBasket">
+                <div class="py-2">Ukloni</div>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of basket.dodatiProizvodi">
+            <td>
+                <div class="p-2 d-inline-block">
+                    <img src="{{item.urlSlike}}" alt="{{item.naziv}}" class="img-fluid" style="max-height: 50px;">
+                    <div class="ms-3 d-inline-block align-middle">
+                        <h5 class="mb-0">
+                            <a routerLink="/shop/{{item.idProizvod}}"
+                                class="text-dark text-decoration-none">{{item.naziv}}</a>
+                        </h5>
+                    </div>
+                </div>
+            </td>
+            <td class="align-middle"><strong>{{item.cena | currency}}</strong></td>
+            <td class="align-middle">
+                <div class="d-flex align-items-center" [class.justify-content-center]="!isBasket">
+                    <i *ngIf="isBasket" class="fa fa-minus-circle text-danger me-2"
+                        style="cursor: pointer; font-size: 2em;" (click)="removeBasketItem(item.idProizvod, 1)"></i>
+                    <strong style="font-size: 1.2em;">{{item.kolicina}}</strong>
+                    <i *ngIf="isBasket" class="fa fa-plus-circle text-danger mx-2"
+                        style="cursor: pointer; font-size: 2em;" (click)="addBasketitem(item)"></i>
+                </div>
+            </td>
+            <td class="align-middle"><strong>{{item.cena * item.kolicina | currency}}</strong></td>
+            <td class="align-middle" *ngIf="isBasket">
+                <a class="text-danger">
+                    <i (click)="removeBasketItem(item.idProizvod, item.kolicina)" class="fa fa-trash"
+                        style="font-size: 2em; cursor: pointer;"></i>
+                </a>
+            </td>
+        </tr>
+    </tbody>
+</table>

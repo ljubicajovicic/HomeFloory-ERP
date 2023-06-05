@@ -23,9 +23,10 @@ namespace HomeFloory.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Registrovan, Admin")]
+        //[Authorize(Roles = "Registrovan, Admin")]
         public async Task<IActionResult> GetAllKorpa()
         {
+            
             var korpa = await korpaRepo.GetAllKorpa();
             if(korpa == null)
             {
@@ -38,7 +39,7 @@ namespace HomeFloory.Controllers
         //provera trigera za racunanje ukupne cene u okviru korpe
         [HttpGet]
         [Route("{IdKorpa}")]
-        [Authorize(Roles = "Registrovan")]
+        //[Authorize(Roles = "Registrovan")]
         public async Task<IActionResult> GetKorpa(decimal IdKorpa)
         {
             var korpa = await korpaRepo.GetKorpa(IdKorpa);
@@ -52,7 +53,7 @@ namespace HomeFloory.Controllers
 
         //metoda koja pokrece prvi triger, ukoliko je ukupna cena veca od 15000 poruzbina je besplatna
         [HttpPost]
-        [Authorize(Roles = "Registrovan")]
+        //[Authorize(Roles = "Registrovan")]
         public async Task<IActionResult> AddKorpa (AddKorpaDto addKorpaDto)
         {
             try
@@ -61,8 +62,9 @@ namespace HomeFloory.Controllers
                 {
                     CenaDostave = addKorpaDto.CenaDostave,
                     UkupnaCena = addKorpaDto.UkupnaCena,
-                    IdPlacanje = addKorpaDto.IdPlacanje,
-                    IdDostava = addKorpaDto.IdDostava
+                    DodatiProizvodi = new List<DodatiProizvodi>(),
+                    IdPlacanje = 1,
+                    IdDostava = 1
                 };
                 korpa = await korpaRepo.AddKorpa(korpa);
                 var korpaDto = mapper.Map<Korpa>(korpa);
@@ -77,7 +79,7 @@ namespace HomeFloory.Controllers
         //update obelezja ukupnaCena pokrece triger za besplatnu dostavu 
         [HttpPut]
         [Route("{IdKorpa}")]
-        [Authorize(Roles = "Registrovan")]
+        //[Authorize(Roles = "Registrovan")]
         public async Task<IActionResult> UpdateKorpa(decimal IdKorpa, UpdateKorpaDto updateKorpaDto)
         {
             try
@@ -86,8 +88,9 @@ namespace HomeFloory.Controllers
                 {
                     CenaDostave = updateKorpaDto.CenaDostave,
                     UkupnaCena = updateKorpaDto.UkupnaCena,
-                    IdPlacanje = updateKorpaDto.IdPlacanje,
-                    IdDostava = updateKorpaDto.IdDostava
+                    IdPlacanje = 1,
+                    IdDostava = updateKorpaDto.IdDostava,
+
                 };
                 korpa = await korpaRepo.UpdateKorpa(IdKorpa, korpa);
                 if(korpa == null)
