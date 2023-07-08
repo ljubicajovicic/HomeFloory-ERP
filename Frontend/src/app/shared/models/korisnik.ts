@@ -11,6 +11,10 @@ export interface Korisnik {
     token: string
 }
 
+export interface KorisnikAdmin {
+    email: string
+}
+
 export interface Kor {
     email: string
     lozinka: string

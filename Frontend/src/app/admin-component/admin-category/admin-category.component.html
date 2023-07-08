@@ -1,0 +1,47 @@
+<div
+    style="display: flex; align-items: center; justify-content: center; background-color: rgba(130, 94, 40, 0.44); padding-bottom: 35px;">
+    <button (click)="openModal()"
+        style="align-items: center; font-size: 1rem; background-color: #0000002c; color: #000000; border: 2px solid #000000; padding: 4px 8px; border-radius: 4px;">DODAJ
+        KATEGORIJU</button>
+</div>
+<table class="my-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NAZIV KATEGORIJE</th>
+            <th>AZURIRAJ</th>
+            <th>OBRISI</th>
+        </tr>
+    </thead>
+    <tbody style="font-size: 50px;color: black;">
+        <tr *ngFor="let element of dataSource">
+
+            <td class="text-cell">#{{ element.idKategorija }}</td>
+            <td class="text-cell">{{ element.nazivKategorije }}</td>
+
+            <td class="button-cell"><button class="edit-button update-button"
+                    (click)="openEditModal(element)">Azuriraj</button></td>
+            <td class="button-cell"><button class="edit-button delete-button"
+                    (click)="confirmDelete(element)">Obrisi</button></td>
+
+        </tr>
+    </tbody>
+</table>
+
+
+
+<ng-template #deleteConfirmationModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Potvrda</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeDeleteConfirmationModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Da li ste sigurni da zelite da obrisete kategoriju?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteCategory()">Obrisi</button>
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteConfirmationModal()">Ponisti</button>
+    </div>
+</ng-template>

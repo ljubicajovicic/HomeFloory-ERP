@@ -4,7 +4,7 @@ import { BasketTotal, DodatiProizvodi, Korpa } from '../shared/models/korpa';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Proizvod } from '../shared/models/proizvod';
 import axios from 'axios';
-import { Dostava } from '../shared/models/dostava';
+import { Dostava, Dostavaid } from '../shared/models/dostava';
 
 @Injectable({
   providedIn: 'root'
@@ -38,11 +38,10 @@ export class BasketService {
 
   setShippingPrice(deliveryMehod: Dostava) {
     const basket = this.getCurrentBasketValue()
-    this.shipping = deliveryMehod.cenaUsluge;
-    /*if (basket) {
+    this.shipping = deliveryMehod.cenaUsluge
+    if (basket) {
       basket.idDostava = deliveryMehod.idDostava;
-      this.setBasket(basket)
-    }*/
+    }
     this.calculateTotals();
   }
 
@@ -54,7 +53,6 @@ export class BasketService {
       }
     })
   }
-
 
   setBasket(basket: Korpa) {
     return this.http.post<Korpa>(this.baseUrl + 'Korpa', basket).subscribe({
@@ -75,48 +73,17 @@ export class BasketService {
     return this.basketSource.value;
   }
 
-
   async addItemToBasket(item: Proizvod | DodatiProizvodi, kolicina = 1) {
     if (this.isProduct(item)) item = this.mapProductItemtoBasketItem(item);
 
     const basket = this.getCurrentBasketValue() || await this.createBasket();
-    const idKorpa = Number(localStorage.getItem('idKorpa'))
-
-    const existingItem = basket.dodatiProizvodi.find(
-      x => x.idProizvod === item.idProizvod && x.idKorpa === idKorpa,
-      console.log(idKorpa)
-    );
-
-
-    if (existingItem) {
-      // Item already exists in the basket, update the quantity
-      existingItem.kolicina += kolicina;
-      await this.updateProductQuantityInBasket(existingItem.idProizvod, existingItem.kolicina);
-    } else {
-      // Item does not exist in the basket, add a new item
-      basket.dodatiProizvodi = this.addOrUpdateItem(basket.dodatiProizvodi, item, kolicina);
-      this.addBasketItem(item);
-    }
+    basket.dodatiProizvodi = this.addOrUpdateItem(basket.dodatiProizvodi, item, kolicina);
+    this.addBasketItem(item);
 
     this.calculateTotals();
   }
 
-  updateProductQuantityInBasket(productId: number, quantity: number) {
-    const idKorpa = Number(localStorage.getItem('idKorpa'));
-    const url = `${this.baseUrl}DodatiProizvodi/${productId}/${idKorpa}`;
 
-    // Create an object with the updated quantity
-    const updatedProduct: Partial<DodatiProizvodi> = {
-      kolicina: quantity
-    };
-
-    return this.http.put<DodatiProizvodi>(url, updatedProduct).subscribe({
-      next: basket => {
-        this.basketItemSource.next(basket);
-        this.calculateTotals();
-      }
-    });
-  }
 
 
   removeItemFromBasket(idProizvod: number, kolicina = 1) {
@@ -128,13 +95,17 @@ export class BasketService {
       if (item.kolicina === 0) {
         basket.dodatiProizvodi = basket.dodatiProizvodi.filter(x => x.idProizvod !== idProizvod)
       }
-      if (basket.dodatiProizvodi.length > 0) this.updateProductQuantityInBasket(idProizvod, kolicina)
-      else this.deleteBasket(basket);
+      if (basket.dodatiProizvodi.length === 0)
+        this.deleteBasket(basket);
     }
   }
 
+
   deleteBasket(basket: Korpa) {
-    return this.http.delete(this.baseUrl + 'Korpa/' + basket.idKorpa).subscribe({
+    const token = localStorage.getItem('token');
+    let headers = new HttpHeaders();
+    headers = headers.set('Authorization', `Bearer ${token}`);
+    return this.http.delete(this.baseUrl + 'Korpa/' + basket.idKorpa, { headers }).subscribe({
       next: () => {
         this.deleteLocalBasket();
       }
@@ -148,9 +119,10 @@ export class BasketService {
   }
 
   private addOrUpdateItem(dodatiProizvodi: DodatiProizvodi[], itemToAdd: DodatiProizvodi, kolicina: number): DodatiProizvodi[] {
-    const idKorpa = Number(localStorage.getItem('idKorpa'))
-    const item = dodatiProizvodi.find(x => x.idProizvod === itemToAdd.idProizvod && x.idKorpa === idKorpa);
-    if (item) item.kolicina += kolicina;
+
+    const item = dodatiProizvodi.find(x => x.idDodatiProizvodi === itemToAdd.idDodatiProizvodi);
+
+    if (item) { item.kolicina += kolicina; }
     else {
       itemToAdd.kolicina = kolicina;
       dodatiProizvodi.push(itemToAdd)
@@ -159,7 +131,7 @@ export class BasketService {
   }
 
 
-  private async createBasket(): Promise<Korpa> {
+  public async createBasket(): Promise<Korpa> {
     const basket = new Korpa();
 
     try {
@@ -168,8 +140,7 @@ export class BasketService {
 
       localStorage.setItem('idKorpa', savedBasket.idKorpa.toString());
 
-      // Assuming 'setBasket' method updates 'dodatiProizvodi' property on the 'Korpa' object
-      savedBasket.dodatiProizvodi = []; // Set it to an empty array or initialize it with appropriate values
+      savedBasket.dodatiProizvodi = [];
 
       this.setBasket(savedBasket);
 
@@ -181,12 +152,15 @@ export class BasketService {
   }
 
   private mapProductItemtoBasketItem(item: Proizvod): DodatiProizvodi {
+    const basket = this.getCurrentBasketValue()
+    const kolicina = basket?.dodatiProizvodi.reduce((sum, product) => sum + product.kolicina, 0) || 0;
+
     return {
+      idDodatiProizvodi: item.idProizvod,
       idProizvod: item.idProizvod,
       idKorpa: Number(localStorage.getItem('idKorpa')),
       cena: item.cenaPoM2,
       kolicina: 1,
-      kolicinaPoM2: 1,
 
       urlSlike: item.urlSlike,
       naziv: item.naziv,
@@ -194,14 +168,33 @@ export class BasketService {
     }
   }
 
-  private calculateTotals() {
-    const basket = this.getCurrentBasketValue()
-    if (!basket) return;
-    basket.ukupnaCena = basket.dodatiProizvodi.reduce((a, b) => (b.cena * b.kolicina) + a, 0)
-    const total = basket.ukupnaCena + this.shipping
-    if (total > 15000) this.shipping = 0
-    this.basketTotalSource.next({ shipping: this.shipping, subtotal: basket.ukupnaCena, total })
+  private calculateTotals(): { shipping: number, subtotal: number, total: number } {
+    const basket = this.getCurrentBasketValue();
+    if (!basket) return { shipping: 0, subtotal: 0, total: 0 };
+    const subtotal = basket.dodatiProizvodi.reduce((a, b) => (b.cena * b.kolicina) + a, 0);
+    let shipping = this.shipping;
+
+    let total = subtotal + shipping;
+
+    if (total > 15000) {
+      shipping = 0
+      total = subtotal + shipping;
+    }
+
+    this.basketTotalSource.next({ shipping: shipping, subtotal, total })
+    return { shipping, subtotal, total };
   }
+
+  public getShipping(): number {
+    const { shipping } = this.calculateTotals();
+    return shipping;
+  }
+
+  public getTotal(): number {
+    const { total } = this.calculateTotals();
+    return total;
+  }
+
 
   private isProduct(item: Proizvod | DodatiProizvodi): item is Proizvod {
     return (item as Proizvod).idKategorija !== undefined

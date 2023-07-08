@@ -20,11 +20,13 @@ namespace HomeFloory.Controllers
     {
         private readonly IConfiguration _config;
         private readonly HomeFlooryDbContext homeFlooryDbContext;
+        private readonly IKorisnikRepo korisnikRepo;
 
-        public PrijavaController(IConfiguration config , HomeFlooryDbContext homeFlooryDbContext)
+        public PrijavaController(IConfiguration config , HomeFlooryDbContext homeFlooryDbContext, IKorisnikRepo korisnikRepo)
         {
             _config = config;
             this.homeFlooryDbContext = homeFlooryDbContext;
+            this.korisnikRepo = korisnikRepo;
         }
 
         [HttpPost("Prijava")]
@@ -36,7 +38,9 @@ namespace HomeFloory.Controllers
             {
 
                 var token = Generate(korisnik);
-                return Ok(new { token });
+                var idKorisnik = korisnik.IdKorisnik;
+                var idUloga = korisnik.IdUloga;
+                return Ok(new { token, idKorisnik, idUloga });
             }
             return NotFound("Uneli ste pogresan email ili lozinku!");
         }
@@ -52,18 +56,22 @@ namespace HomeFloory.Controllers
                     Kontakt = addKorisnikDto.Kontakt,
                     Email = addKorisnikDto.Email,
                     Lozinka = addKorisnikDto.Lozinka,
-                    IdAdresaIsporuke = addKorisnikDto.IdAdresaIsporuke,
+                    IdAdresaIsporuke = 1,
                     IdUloga = 1
             };
 
-            homeFlooryDbContext.Korisnici.Add(korisnik);
-            homeFlooryDbContext.SaveChanges();
+
+            await korisnikRepo.AddKorisnik(korisnik);
+
+            //homeFlooryDbContext.Korisnici.AddAsync(korisnik);
+            //await homeFlooryDbContext.SaveChangesAsync();
 
             // Generate the token
             var token = Generate(korisnik);
 
+            var idKorisnik = korisnik.IdKorisnik;
             // Return the token in the response
-            return Ok(new { token });
+            return Ok(new { token, idKorisnik });
         }
 
         private string Generate(Korisnik korisnik)
@@ -117,8 +125,8 @@ namespace HomeFloory.Controllers
         }
 
         [HttpPost]
-        [Route("/admin")]
-        [Authorize("Admin")]
+        [Route("admin")]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> AddAdmin([FromBody] AddAdminDto addAdminDto)
         {
             var existingKorisnik = homeFlooryDbContext.Korisnici.Where(a => a.Email == addAdminDto.Email).FirstOrDefault();
@@ -131,7 +139,7 @@ namespace HomeFloory.Controllers
             existingKorisnik.IdUloga = 2;
             homeFlooryDbContext.Korisnici.Update(existingKorisnik);
             homeFlooryDbContext.SaveChanges();
-            return Ok("Korisnik je admin!");
+            return Ok(new { message = "Korisnik je admin!" });
         }
     }
 }

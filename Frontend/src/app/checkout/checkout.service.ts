@@ -22,7 +22,7 @@ export class CheckoutService {
     const headers = new HttpHeaders({
       Authorization: `Bearer ${this.getToken()}`
     });
-    return this.http.get<Dostava[]>(this.baseUrl + "Dostava", { headers })
+    return this.http.get<Dostava[]>(this.baseUrl + 'Dostava', { headers })
   }
 
   getToken() {

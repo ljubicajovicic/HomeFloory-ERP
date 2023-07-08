@@ -6,7 +6,11 @@
 
         public decimal? Kolicina { get; set; }
 
-        public decimal? KolicinaPoM2 { get; set; }
+
+        public decimal IdProizvod { get; set; }
+
+        public decimal IdKorpa { get; set; }
+
 
     }
 }

@@ -19,7 +19,7 @@ export class AppComponent implements OnInit {
   }
 
   loadBasket() {
-    const basketId = localStorage.getItem('basket_id');
+    const basketId = localStorage.getItem('idKorpa');
     if (basketId !== null) {
       //const parsedBasketId = parseInt(basketId, 10)
       this.basketService.getBasket(basketId);

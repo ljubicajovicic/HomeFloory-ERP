@@ -1,0 +1,20 @@
+<div class="modal-header bg-secondary text-light">
+    <h4 class="modal-title">{{ isUpdate ? 'Azuriraj proizvodjaca' : 'Dodaj proizvodjaca' }}</h4>
+    <button type="button" class="close text-light" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form (ngSubmit)="submitForm()">
+        <div class="form-group">
+            <label for="nazivProizvodjaca">Naziv proizvodjaca:</label>
+            <input type="text" class="form-control" id="nazivProizvodjaca" name="nazivProizvodjaca"
+                [(ngModel)]="nazivProizvodjaca" required>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button *ngIf="isUpdate" class="btn btn-secondary" (click)="updateProducer()">Azuriraj</button>
+    <button type="button" *ngIf="!isUpdate" class="btn btn-secondary" (click)="addProducer()">Sacuvaj</button>
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Zatvori</button>
+</div>

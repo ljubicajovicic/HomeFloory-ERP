@@ -1,8 +1,11 @@
-<div class="align-items-center d-flex justify-content-center mt-50" style="padding-top: 300px; height:480px;">
+<div class="align-items-center d-flex justify-content-center mt-50" style="padding-top: 270px; padding-bottom: 175px; background-image: url('../../../assets/images/prijavaback.jpg');
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;">
     <div class="col-5">
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
             <div class="text-center mb-6">
-                <h1 class="mb-3">Prijava</h1>
+                <h1 class="mb-5">Prijava</h1>
             </div>
 
             <app-text-inputs [formControl]="loginForm.controls['email']" [label]="'Email'"></app-text-inputs>

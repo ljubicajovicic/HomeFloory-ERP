@@ -1,0 +1,24 @@
+<table class="my-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>DATUM</th>
+            <th>CENA DOSTAVE</th>
+            <th>UKUPNA CENA</th>
+            <th>STATUS</th>
+            <th>ID KORISNIK</th>
+            <th>PROIZVODI</th>
+        </tr>
+    </thead>
+    <tbody style="font-size: 19px;color: black;">
+        <tr *ngFor="let element of dataSource">
+            <td class="text-cell">{{ element.idKorpa }}</td>
+            <td class="text-cell ">{{ element.datum }}</td>
+            <td class="text-cell">{{ element.cenaDostave }}</td>
+            <td class="text-cell description-cell">{{ element.ukupnaCena }}</td>
+            <td class="text-cell">{{ element.status}}</td>
+            <td class="text-cell">{{ element.idKorisnik }}</td>
+            <td class="text-cell">{{ element.dodatiProizvodi | json}}</td>
+        </tr>
+    </tbody>
+</table>

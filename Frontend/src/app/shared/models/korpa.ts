@@ -1,13 +1,14 @@
 import { AdresaIsporuke } from "./korisnik"
 
 export interface DodatiProizvodi {
+    idDodatiProizvodi: number
     idProizvod: number
     idKorpa: number
     cena: number
     kolicina: number
-    kolicinaPoM2: number
     urlSlike?: string
     naziv?: string
+    idProizvodNavigation?: IdProizvodNavigation
 }
 
 
@@ -19,7 +20,7 @@ export interface Korpa {
     datum?: Date
     paymentIntent?: string
     clientSecret?: string
-    idPlacanje?: number
+    idKorisnik?: number
     idDostava: number
     dodatiProizvodi: DodatiProizvodi[]
     idDostavaNavigation?: IdDostavaNavigation
@@ -28,9 +29,10 @@ export interface Korpa {
 
 export interface Porudzbina {
     cenaDostave: number
-    ukupnaCena: number | undefined
+    ukupnaCena: number
     idDostava: number
-    idPlacanje?: number
+    idKorisnik: number
+    dodatiProizvodi?: DodatiProizvodi[]
 }
 
 export interface IdDostavaNavigation {

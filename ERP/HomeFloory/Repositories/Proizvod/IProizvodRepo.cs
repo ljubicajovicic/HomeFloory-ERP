@@ -9,6 +9,8 @@ namespace HomeFloory.Repositories.ProizvodRepo
             string? sortBy = null,
             int pageNumber = 1, int pageSize = 1000);
 
+        Task<IEnumerable<Proizvod>> GetProizvodNoParam();
+
         Task<Proizvod> GetProizvod(decimal IdProizvod);
 
         Task<Proizvod> AddProizvod(Proizvod proizvod);

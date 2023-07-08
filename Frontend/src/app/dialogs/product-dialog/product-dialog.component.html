@@ -1,0 +1,62 @@
+<div class="modal-header bg-secondary text-light">
+    <h4 class="modal-title">{{ isUpdate ? 'Azuriraj proizvod' : 'Dodaj proizvod' }}</h4>
+    <button type="button" class="close text-light" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form (ngSubmit)="submitForm()">
+        <div class="form-group">
+            <label for="naziv">Naziv:</label>
+            <input type="text" class="form-control" id="naziv" name="naziv" [(ngModel)]="naziv">
+        </div>
+        <div class="form-group">
+            <label for="opis">Opis:</label>
+            <input type="text" class="form-control" id="opis" name="opis" [(ngModel)]="opis">
+        </div>
+
+        <div class="form-group">
+            <label for="kolicinaNaStanju">Kolicina na stanju:</label>
+            <input type="number" class="form-control" id="kolicinaNaStanju" name="kolicinaNaStanju"
+                [(ngModel)]="kolicinaNaStanju">
+        </div>
+        <div class="form-group">
+            <label for="cenaPoM2">Cena Po m2:</label>
+            <input type="number" class="form-control" id="cenaPoM2" name="cenaPoM2" [(ngModel)]="cenaPoM2">
+        </div>
+
+        <div class="form-group">
+            <label for="paketPoM2">Paket Po m2:</label>
+            <input type="number" class="form-control" id="paketPoM2" name="paketPoM2" [(ngModel)]="paketPoM2">
+        </div>
+
+        <div class="form-group">
+            <label for="dimenzija">Dimenzija:</label>
+            <input type="text" class="form-control" id="dimenzija" name="dimenzija" [(ngModel)]="dimenzija">
+        </div>
+        <div class="form-group">
+            <label for="nijansa">Nijansa:</label>
+            <input type="text" class="form-control" id="nijansa" name="nijansa" [(ngModel)]="nijansa">
+        </div>
+        <div class="form-group">
+            <label for="urlSlike">URL slike:</label>
+            <input type="text" class="form-control" id="urlSlike" name="urlSlike" [(ngModel)]="urlSlike">
+        </div>
+
+        <div class="form-group">
+            <label for="idKategorija">idKategorija:</label>
+            <input type="number" class="form-control" id="idKategorija" name="idKategorija" [(ngModel)]="idKategorija"
+                required>
+        </div>
+        <div class="form-group">
+            <label for="idProizvodjac">idProizvodjac:</label>
+            <input type="number" class="form-control" id="idProizvodjac" name="idProizvodjac"
+                [(ngModel)]="idProizvodjac" required>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button *ngIf="isUpdate" class="btn btn-secondary" (click)="updateProduct()">Azuriraj</button>
+    <button type="button" *ngIf="!isUpdate" class="btn btn-secondary" (click)="addProduct()">Sacuvaj</button>
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Zatvori</button>
+</div>

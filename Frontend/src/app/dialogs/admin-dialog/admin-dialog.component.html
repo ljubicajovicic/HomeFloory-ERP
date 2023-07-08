@@ -1,0 +1,18 @@
+<div class="modal-header bg-secondary text-light">
+    <h4 class="modal-title">Unesi email korisnika kom se menja uloga</h4>
+    <button type="button" class="close text-light" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form (ngSubmit)="submitForm()">
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" class="form-control" id="email" name="email" [(ngModel)]="email" required>
+        </div>
+    </form>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="addAdmin()">Sacuvaj</button>
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Zatvori</button>
+</div>

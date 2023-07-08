@@ -85,6 +85,18 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
         });
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowOrigin", builder =>
+    {
+        builder.WithOrigins("https://localhost:4200")
+            .AllowAnyMethod()
+            .AllowAnyHeader()
+            .WithExposedHeaders("Authorization")
+            .AllowCredentials();
+    });
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -94,16 +106,25 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(x => x
+/*app.UseCors(x => x
             .AllowAnyOrigin()
             .AllowAnyMethod()
-            .AllowAnyHeader());
+            .AllowAnyHeader());*/
+
+/*app.UseCors(builder =>
+{
+    builder.WithOrigins("https://localhost:4200")
+           .AllowAnyMethod()
+           .AllowAnyHeader();
+});*/
 
 
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseCors("AllowOrigin");
 
 app.MapControllers();
 

@@ -22,7 +22,8 @@
         <tr *ngFor="let item of basket.dodatiProizvodi">
             <td>
                 <div class="p-2 d-inline-block">
-                    <img src="{{item.urlSlike}}" alt="{{item.naziv}}" class="img-fluid" style="max-height: 50px;">
+                    <img src="{{item.idProizvodNavigation?.urlSlike}}" alt="{{item.idProizvodNavigation?.naziv}}"
+                        class="img-fluid" style="max-height: 50px;">
                     <div class="ms-3 d-inline-block align-middle">
                         <h5 class="mb-0">
                             <a routerLink="/shop/{{item.idProizvod}}"

@@ -24,7 +24,6 @@ namespace HomeFloory.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
         public async Task<IActionResult> GetAllKorisnik()
         {
             var korisnik = await korisnikRepo.GetAllKorisnik();
@@ -38,7 +37,6 @@ namespace HomeFloory.Controllers
 
         [HttpGet]
         [Route("{IdKorisnik}")]
-        //[Authorize(Roles = "Registrovan, Admin")]
         public async Task<IActionResult> GetKorisnik(decimal IdKorisnik)
         {
             var korisnik = await korisnikRepo.GetKorisnik(IdKorisnik);
@@ -50,7 +48,7 @@ namespace HomeFloory.Controllers
             return Ok(korisnikDto);
         }
 
-        [HttpPost("Registracija")]
+       [HttpPost]
         public async Task<IActionResult> AddKorisnik(AddKorisnikDto addKorisnikDto)
         {
             try
@@ -59,11 +57,11 @@ namespace HomeFloory.Controllers
                 {
                     Ime = addKorisnikDto.Ime,
                     Prezime = addKorisnikDto.Prezime,
-                    DatumRodjenja = addKorisnikDto.DatumRodjenja,
-                    Kontakt = addKorisnikDto.Kontakt,
+                    //DatumRodjenja = addKorisnikDto.DatumRodjenja,
+                    //Kontakt = addKorisnikDto.Kontakt,
                     Email = addKorisnikDto.Email,
                     Lozinka = addKorisnikDto.Lozinka,
-                    IdAdresaIsporuke = addKorisnikDto.IdAdresaIsporuke,
+                    IdAdresaIsporuke = 1,
                     IdUloga = 1
                 };
                 korisnik = await korisnikRepo.AddKorisnik(korisnik);
@@ -78,7 +76,6 @@ namespace HomeFloory.Controllers
 
         [HttpPut]
         [Route("{IdKorisnik}")]
-        [Authorize(Roles = "Registrovan, Admin")]
         public async Task<IActionResult> UpdateKorisnik(decimal IdKorisnik, UpdateKorisnikDto updateKorisnikDto)
         {
             try
@@ -110,7 +107,6 @@ namespace HomeFloory.Controllers
 
         [HttpDelete]
         [Route("{IdKorisnik}")]
-        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteKorisnik(decimal IdKorisnik)
         {
             try

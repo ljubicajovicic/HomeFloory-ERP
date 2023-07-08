@@ -22,7 +22,7 @@ public partial class Korpa
     public string? ClientSecret { get; set; }
 
     [DefaultValue(1)]
-    public decimal IdPlacanje { get; set; }
+    public decimal IdKorisnik { get; set; }
 
     public decimal IdDostava { get; set; }
 
@@ -30,5 +30,5 @@ public partial class Korpa
 
     public virtual Dostava? IdDostavaNavigation { get; set; } = null!;
 
-    public virtual Placanje? IdPlacanjeNavigation { get; set; } = null!;
+    public virtual Placanje? IdKorisnikNavigation { get; set; } = null!;
 }

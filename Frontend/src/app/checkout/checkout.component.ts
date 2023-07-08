@@ -4,6 +4,8 @@ import { AccountModule } from '../account/account.module';
 import { AccountService } from '../account/account.service';
 import { AdresaIsporuke } from '../shared/models/korisnik';
 import { BasketService } from '../basket/basket.service';
+import { Dostava, Dostavaid } from '../shared/models/dostava';
+import { Porudzbina } from '../shared/models/korpa';
 
 @Component({
   selector: 'app-checkout',
@@ -26,7 +28,7 @@ export class CheckoutComponent implements OnInit {
       postanskiBroj: ['', Validators.required]
     }),
     deliveryForm: this.fb.group({
-      tipDostave: ['', Validators.required]
+      idDostava: ['', Validators.required],
     }),
     paymentForm: this.fb.group({
       nameOnCard: ['', Validators.required]
@@ -51,19 +53,16 @@ export class CheckoutComponent implements OnInit {
         postanskiBroj: addressForm.value.postanskiBroj
       };
 
-      this.accountService.addUserAddress(address).subscribe(
-        (addedAddressId: number) => {
-          // Address added successfully
-          console.log('Address added successfully', addedAddressId);
-          // Perform any necessary actions after address is added
-        },
-        (error) => {
-          // Handle the error appropriately
-          console.error('Failed to add address:', error);
-        }
-      );
+      this.accountService.addUserAddress(address)
     }
   }
+
+  onDeliverySubmit() {
+
+
+  }
+
+
 
 
 }

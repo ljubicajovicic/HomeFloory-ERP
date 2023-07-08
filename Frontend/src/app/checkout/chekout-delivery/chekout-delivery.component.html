@@ -2,7 +2,7 @@
     <div class="row" formGroupName="deliveryForm">
         <div class="col-6 form-group" *ngFor="let method of deliveryMethods">
             <input type="radio" class="form-check-input" value="{{method.idDostava}}" id="{{method.idDostava}}"
-                formControlName="tipDostave" (click)="setShippingPrice(method)">
+                formControlName="idDostava" (click)="setShippingPrice(method)">
             <label for="{{method.idDostava}}" class="form-check-label ms-2 mb-3">
                 <strong>{{method.nazivSluzbe}} - {{method.cenaUsluge | currency}}</strong>
                 <br>

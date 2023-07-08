@@ -18,16 +18,4 @@ export class NavBarComponent {
     return dodatiProizvodi.reduce((sum, item) => sum + item.kolicina, 0)
   }
 
-  /*getCount(basket: Korpa): number {
-    if (!basket || !basket.dodatiProizvodi || basket.dodatiProizvodi.length === 0) {
-      return 0;
-    }
-
-    const count = basket.dodatiProizvodi.reduce((total, product) => {
-      return total + product.kolicina;
-    }, 0);
-
-    return count;
-  }*/
-
 }

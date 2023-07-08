@@ -5,3 +5,8 @@ export interface Dostava {
     cenaUsluge: number
     rokDostave: string
 }
+
+export interface Dostavaid {
+    idDostava: number
+    cenaUsluge: number
+}

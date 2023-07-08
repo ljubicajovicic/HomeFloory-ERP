@@ -1,0 +1,31 @@
+<div style=" background-image: url('../../assets/images/marble.jpg');
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;">
+    <div class="container mt-5" style="padding-top: 180px;">
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-hover" style="cursor: pointer;">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>Porudzbina</th>
+                            <th>Datum</th>
+                            <th>Ukupna cena</th>
+                            <th>Cena Dostave</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let order of orders">
+                            <th># {{order.idKorpa}}</th>
+                            <td>{{order.datum }}</td>
+                            <td>{{order.ukupnaCena | currency}}</td>
+                            <td>{{order.cenaDostave | currency}}</td>
+                            <td>{{order.status}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

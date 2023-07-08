@@ -5,4 +5,10 @@
 
         <i class=" fa fa-check-circle fa-5x " style=" color: green;"></i>
     </div>
+    <button *ngIf="order" routerLink="/orders/{{order.idKorpa}}" class="btn btn-outline-success">
+        Pregledaj svoju porudzbinu
+    </button>
+    <button *ngIf="!order" routerLink="/orders" class="btn btn-outline-success">
+        Pregledaj svoje porudzbine
+    </button>
 </div>

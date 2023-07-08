@@ -15,9 +15,10 @@ export class RegisterComponent {
   registerForm = this.fb.group({
     ime: ['', Validators.required],
     prezime: ['', Validators.required],
+    datumRodjenja: ['', [Validators.required]],
+    kontakt: ['', Validators.required],
     email: ['', [Validators.required, Validators.email]],
     lozinka: ['', Validators.required],
-    idAdresaIsporuke: ['', Validators.required],
   })
 
   onSubmit() {

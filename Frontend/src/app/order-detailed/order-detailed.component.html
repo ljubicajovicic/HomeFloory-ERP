@@ -1,0 +1,13 @@
+<div class="container mt-5" style="padding-top: 150px;">
+    <div class="row" *ngIf="order">
+        <div class="col-8">
+            <app-basket-summary [isBasket]="false">
+            </app-basket-summary>
+
+        </div>
+        <div class="col-4">
+            <app-order-totals>
+            </app-order-totals>
+        </div>
+    </div>
+</div>

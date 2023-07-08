@@ -5,9 +5,9 @@ namespace HomeFloory.Repositories.DodatiProizvodiRepo
     public interface IDodatiProizvodiRepo 
     {
         Task<IEnumerable<DodatiProizvodi>> GetAllDodatiProizvodi();
-        Task<DodatiProizvodi> GetDodatiProizvodi(decimal IdProizvod, decimal IdKorpa);
+        Task<DodatiProizvodi> GetDodatiProizvodi(decimal IdDodatiProizvodi);
         Task<DodatiProizvodi> AddDodatiProizvodi(DodatiProizvodi dodatiProizvodi);
-        Task<DodatiProizvodi> UpdateDodatiProizvodi(decimal IdProizvod,decimal IdKorpa , DodatiProizvodi dodatiProizvodi);
-        Task<DodatiProizvodi> DeleteDodatiProizvodi(decimal IdProizvod, decimal IdKorpa);
+        Task<DodatiProizvodi> UpdateDodatiProizvodi(decimal IdDodatiProizvodi , DodatiProizvodi dodatiProizvodi);
+        Task<DodatiProizvodi> DeleteDodatiProizvodi(decimal IdDodatiProizvodi);
     }
 }

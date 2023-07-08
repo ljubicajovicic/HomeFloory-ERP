@@ -1,0 +1,59 @@
+<div
+    style="display: flex; align-items: center; justify-content: center; background-color: rgba(130, 94, 40, 0.44); padding-bottom: 35px;">
+    <button (click)="openModal()"
+        style="align-items: center; font-size: 1rem; background-color: #0000002c; color: #000000; border: 2px solid #000000; padding: 4px 8px; border-radius: 4px;">DODAJ
+        PROIZVOD</button>
+</div>
+<table class="my-table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>NAZIV</th>
+            <th>OPIS</th>
+            <th>CENA</th>
+            <th>KOLICINA NA STANJU</th>
+            <th>PAKET PO M2</th>
+            <th>DIMENZIJA</th>
+            <th>NIJANSA</th>
+            <th class="picture-url-cell">URL SLIKE</th>
+            <th>AZURIRAJ</th>
+            <th>OBRISI</th>
+
+        </tr>
+    </thead>
+    <tbody style="font-size: 19px;color: black;">
+        <tr *ngFor="let element of dataSource">
+            <td class="text-cell">{{ element.idProizvod }}</td>
+            <td class="text-cell">{{ element.naziv }}</td>
+            <td class="text-cell description-cell">{{ element.opis }}</td>
+            <td class="text-cell">{{ element.cenaPoM2}}</td>
+            <td class="text-cell">{{ element.kolicinaNaStanju}}</td>
+            <td class="text-cell picture-url-cell">{{ element.paketPoM2 }}</td>
+            <td class="text-cell">{{ element.dimenzija }}</td>
+            <td class="text-cell">{{ element.nijansa }}</td>
+            <td class="text-cell">{{ element.urlSlike }}</td>
+
+            <td class="button-cell"><button class="edit-button update-button"
+                    (click)="openEditModal(element)">Azuriraj</button></td>
+            <td class="button-cell"><button class="edit-button delete-button"
+                    (click)="confirmDelete(element)">Obrisi</button></td>
+
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #deleteConfirmationModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Potvrda</h4>
+        <button type="button" class="close" aria-label="Close" (click)="closeDeleteConfirmationModal()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        Da li ste sigurni da zelite da obrisete proizvod?
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="deleteProduct()">Obrisi</button>
+        <button type="button" class="btn btn-secondary" (click)="closeDeleteConfirmationModal()">Ponisti</button>
+    </div>
+</ng-template>

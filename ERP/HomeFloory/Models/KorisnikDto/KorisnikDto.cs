@@ -18,6 +18,7 @@ namespace HomeFloory.Models.KorisnikDto
 
         public string? Lozinka { get; set; }
 
+        [DefaultValue(1)]
         public decimal? IdAdresaIsporuke { get; set; }
 
         [DefaultValue(1)]

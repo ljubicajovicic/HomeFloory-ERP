@@ -10,10 +10,24 @@ export interface Proizvod {
     urlSlike: string
     idKategorija: number
     idProizvodjac?: number
-    dodatiProizvodi: any[]
-    idKategorijaNavigation: IdKategorijaNavigation
+    dodatiProizvodi?: any[]
+    idKategorijaNavigation?: IdKategorijaNavigation
     idProizvodjacNavigation?: IdProizvodjacNavigation
 }
+
+export interface ProizvodAdd {
+    naziv: string
+    opis: string
+    kolicinaNaStanju: number
+    cenaPoM2: number
+    paketPoM2: number
+    dimenzija: string
+    nijansa: string
+    urlSlike: string
+    idKategorija: number
+    idProizvodjac?: number
+}
+
 
 export interface IdKategorijaNavigation {
     idKategorija: number

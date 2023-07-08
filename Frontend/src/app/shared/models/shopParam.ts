@@ -4,5 +4,9 @@ export class ShopParam {
     idProizvodjac = 0;
     sort = 'Cena-rastuce';
     pageNumber = 1;
-    pageSize = 2;
+    pageSize = 6;
+}
+
+export class KorisnikParam {
+    idKorisnik = 0
 }

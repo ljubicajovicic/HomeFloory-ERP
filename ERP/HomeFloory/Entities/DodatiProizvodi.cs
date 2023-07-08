@@ -5,6 +5,7 @@ namespace HomeFloory.Models;
 
 public partial class DodatiProizvodi
 {
+    public decimal IdDodatiProizvodi { get; set; }
     public decimal IdProizvod { get; set; }
 
     public decimal IdKorpa { get; set; }
@@ -13,7 +14,6 @@ public partial class DodatiProizvodi
 
     public decimal? Kolicina { get; set; }
 
-    public decimal? KolicinaPoM2 { get; set; }
 
     public virtual Korpa? IdKorpaNavigation { get; set; } = null!;
 

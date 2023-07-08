@@ -4,11 +4,15 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { RouterModule } from '@angular/router';
 import { SharedModule } from '../shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdminComponent } from './admin/admin.component';
+import { SideBarComponent } from './side-bar/side-bar.component';
 
 
 @NgModule({
   declarations: [
-    NavBarComponent
+    NavBarComponent,
+    AdminComponent,
+    SideBarComponent
   ],
   imports: [
     CommonModule,

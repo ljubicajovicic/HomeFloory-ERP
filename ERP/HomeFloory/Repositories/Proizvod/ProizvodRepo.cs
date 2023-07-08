@@ -15,6 +15,11 @@ namespace HomeFloory.Repositories.ProizvodRepo
             this.homeFlooryDbContext = homeFlooryDbContext;
         }
 
+        public async Task<IEnumerable<Proizvod>> GetProizvodNoParam()
+        {
+            return await homeFlooryDbContext.Proizvodi.ToListAsync();
+        }
+
         public async Task<Proizvod> AddProizvod(Proizvod proizvod)
         {
             Random random = new Random();
@@ -33,7 +38,7 @@ namespace HomeFloory.Repositories.ProizvodRepo
                 return null;
             };
             homeFlooryDbContext.Proizvodi.Remove(existingProizvod);
-            homeFlooryDbContext.SaveChangesAsync();
+            await homeFlooryDbContext.SaveChangesAsync();
             return existingProizvod;
         }
 
@@ -83,8 +88,6 @@ namespace HomeFloory.Repositories.ProizvodRepo
                 }
             }
 
-            //pagination
-            //var skipProizvod = (pageNumber - 1) * pageSize;
             int totalItems = await proizvodi.CountAsync();
             int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
             int skipCount = (pageNumber - 1) * pageSize;
@@ -93,13 +96,7 @@ namespace HomeFloory.Repositories.ProizvodRepo
 
             return new Pagination<Proizvod>(proizvodi.ToList(), pageNumber,pageSize, totalItems, totalPages);
 
-            //return await proizvodi.Skip(skipProizvod).Take(pageSize).ToListAsync();
-
-            /*return await
-                homeFlooryDbContext.Proizvodi
-                .Include(x => x.IdKategorijaNavigation)
-                .Include(x => x.IdProizvodjacNavigation)
-                .ToListAsync();*/
+          
         }
 
         public async Task<Proizvod> GetProizvod(decimal IdProizvod)
@@ -122,6 +119,7 @@ namespace HomeFloory.Repositories.ProizvodRepo
             existingProizvod.Dimenzija = proizvod.Dimenzija;
             existingProizvod.Nijansa = proizvod.Nijansa;
             existingProizvod.UrlSlike = proizvod.UrlSlike;
+            await homeFlooryDbContext.SaveChangesAsync();
             return existingProizvod;
         }
     }

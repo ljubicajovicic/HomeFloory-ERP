@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Dostava } from 'src/app/shared/models/dostava';
+import { Dostava, Dostavaid } from 'src/app/shared/models/dostava';
 import { CheckoutService } from '../checkout.service';
 import { BasketService } from 'src/app/basket/basket.service';
 

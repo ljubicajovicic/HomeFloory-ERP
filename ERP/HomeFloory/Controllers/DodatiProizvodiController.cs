@@ -37,11 +37,11 @@ namespace HomeFloory.Controllers
         }
 
         [HttpGet]
-        [Route("{IdProizvod}/{IdKorpa}")]
+        [Route("{IdDodatiProizvodi}")]
         [Authorize(Roles = "Registrovan, Admin")]
-        public async Task<IActionResult> GetDodatiProizvodi(decimal IdProizvod, decimal IdKorpa)
+        public async Task<IActionResult> GetDodatiProizvodi(decimal IdDodatiProizvodi)
         {
-            var dodatiProizvodi = await dodatiProizvodiRepo.GetDodatiProizvodi(IdProizvod,IdKorpa);
+            var dodatiProizvodi = await dodatiProizvodiRepo.GetDodatiProizvodi(IdDodatiProizvodi);
             if(dodatiProizvodi == null)
             {
                 return NotFound();
@@ -63,8 +63,7 @@ namespace HomeFloory.Controllers
                     IdProizvod = addDodatiProizvodiDto.IdProizvod,
                     IdKorpa = addDodatiProizvodiDto.IdKorpa,
                     Cena = addDodatiProizvodiDto.Cena,
-                    Kolicina = addDodatiProizvodiDto.Kolicina,
-                    KolicinaPoM2 = addDodatiProizvodiDto.KolicinaPoM2
+                    Kolicina = addDodatiProizvodiDto.Kolicina
                 };
                 dodatiProizvodi = await dodatiProizvodiRepo.AddDodatiProizvodi(dodatiProizvodi);
                 var dodatiProizvodiDto = mapper.Map<DodatiProizvodi>(dodatiProizvodi);
@@ -85,9 +84,9 @@ namespace HomeFloory.Controllers
         }
 
         [HttpPut]
-        [Route("{IdProizvod}/{IdKorpa}")]
+        [Route("{IdDodatiProizvodi}")]
         //[Authorize(Roles = "Registrovan")]
-        public async Task<IActionResult> UpdateDodatiProizvodi(decimal IdProizvod,decimal IdKorpa, UpdateDodatiProizvodiDto updateDodatiProizvodiDto)
+        public async Task<IActionResult> UpdateDodatiProizvodi(decimal IdDodatiProizvodi, UpdateDodatiProizvodiDto updateDodatiProizvodiDto)
         {
             try
             {
@@ -95,9 +94,10 @@ namespace HomeFloory.Controllers
                 {
                     Cena = updateDodatiProizvodiDto.Cena,
                     Kolicina = updateDodatiProizvodiDto.Kolicina,
-                    KolicinaPoM2 = updateDodatiProizvodiDto.KolicinaPoM2
+                    IdKorpa = updateDodatiProizvodiDto.IdKorpa,
+                    IdProizvod = updateDodatiProizvodiDto.IdProizvod
                 };
-                dodatiProizvodi = await dodatiProizvodiRepo.UpdateDodatiProizvodi(IdProizvod, IdKorpa, dodatiProizvodi);
+                dodatiProizvodi = await dodatiProizvodiRepo.UpdateDodatiProizvodi(IdDodatiProizvodi, dodatiProizvodi);
                 if(dodatiProizvodi == null)
                 {
                     return NotFound();
@@ -114,13 +114,13 @@ namespace HomeFloory.Controllers
         /*metoda aktivira triger, u slucaju da se ukloni odredjeni proizvod iz tabele dodatiProizvodi,
         umanjuje se obelezje ukupna cena u korpi, za vrednost uklonjenog proizvoda*/
         [HttpDelete]
-        [Route("{IdProizvod}/{IdKorpa}")]
+        [Route("{IdDodatiProizvodi}")]
         [Authorize(Roles = "Registrovan")]
-        public async Task<IActionResult> DeleteDodatiProizvodi(decimal IdProizvod, decimal IdKorpa)
+        public async Task<IActionResult> DeleteDodatiProizvodi(decimal IdDodatiProizvodi)
         {
             try
             {
-                var dodatiProizvodi = await dodatiProizvodiRepo.DeleteDodatiProizvodi(IdProizvod, IdKorpa);
+                var dodatiProizvodi = await dodatiProizvodiRepo.DeleteDodatiProizvodi(IdDodatiProizvodi);
                 if(dodatiProizvodi == null)
                 {
                     return NotFound();

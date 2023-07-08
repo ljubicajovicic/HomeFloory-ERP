@@ -68,7 +68,7 @@ namespace HomeFloory.Controllers
         }
 
         [HttpPut]
-        [Route("IdKategorija")]
+        [Route("{IdKategorija}")]
         [Authorize(Roles = "Admin")]
         public async Task<IActionResult> UpdateKategorija(decimal IdKategorija, UpdateKategorijaDto updateKategorijaDto)
         {

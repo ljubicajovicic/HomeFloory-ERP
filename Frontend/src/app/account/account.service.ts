@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable, ReplaySubject, map, of, switchMap, take, t
 import { AdresaIsporuke, Kor, Korisnik } from '../shared/models/korisnik';
 import { HttpClient, HttpHeaders, HttpResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { BasketService } from '../basket/basket.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,10 +15,11 @@ export class AccountService {
   kor$ = this.kor.asObservable();
   //currentUser$ = this.currtUser.asObservable();
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient, private router: Router, private basketService: BasketService) { }
 
 
   loadCurrentUser(token: string | null) {
+
     if (token === null) {
       this.kor.next(null);
       return of(null);
@@ -41,11 +43,16 @@ export class AccountService {
 
 
   login(values: any) {
+    this.basketService.createBasket()
     return this.http.post<any>(this.baseUrl + 'Prijava', values, { responseType: 'json' }).pipe(
       map(response => {
         const token = response?.token;
-        if (token) {
+        const idKorisnik = response?.idKorisnik
+        const idUloga = response?.idUloga
+        if (token && idKorisnik) {
           localStorage.setItem('token', token);
+          localStorage.setItem('idKorisnika', idKorisnik);
+          localStorage.setItem('idUloga', idUloga);
           this.kor.next(token);
         }
       })
@@ -54,11 +61,16 @@ export class AccountService {
 
 
   register(values: any) {
+    this.basketService.createBasket()
     return this.http.post<any>(this.baseUrl + 'Registracija', values, { responseType: 'json' }).pipe(
       map(response => {
         const token = response?.token;
-        if (token) {
+        const idKorisnik = response?.idKorisnik;
+        const idUloga = response?.idUloga
+        if (token && idKorisnik) {
           localStorage.setItem('token', token);
+          localStorage.setItem('idKorisnika', idKorisnik)
+          localStorage.setItem('idUloga', idUloga);
           this.kor.next(response);
         }
       })
@@ -68,13 +80,13 @@ export class AccountService {
 
   logout() {
     localStorage.removeItem('token');
+    localStorage.removeItem('idKorpa');
+    localStorage.removeItem('idUloga')
+    localStorage.removeItem('idKorisnika');
     this.kor.next(null);
     this.router.navigateByUrl('/');
   }
 
-  checkEmailExists(email: string) {
-    return this.http.get<boolean>(this.baseUrl + 'account/emailExists?email=' + email);
-  }
 
   getUserAddress() {
 
@@ -94,6 +106,11 @@ export class AccountService {
     let currentUser: Korisnik | null = null;
     this.kor$.pipe(take(1)).subscribe(user => currentUser = user);
     return currentUser;
+  }
+
+  getIdUloga() {
+    const uloga = Number(localStorage.getItem('idUloga'))
+    return uloga
   }
 
 

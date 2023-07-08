@@ -1,17 +1,22 @@
-<div class="align-items-center d-flex justify-content-center mt-50" style="height:480px; padding-top: 300px">
+<div class="align-items-center d-flex justify-content-center mt-50" style="padding-top: 160px; padding-bottom: 130px; background-image: url('../../../assets/images/prijavaback.jpg');
+background-repeat: no-repeat;
+background-position: center;
+background-size: cover;">
     <div class="col-5">
         <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
             <div class="text-center mb-6">
-                <h1 class="mb-3">Registracija</h1>
+                <h1 class="mb-5">Registracija</h1>
             </div>
 
             <app-text-inputs [formControl]="registerForm.controls['ime']" [label]="'Ime'"></app-text-inputs>
             <app-text-inputs [formControl]="registerForm.controls['prezime']" [label]="'Prezime'"></app-text-inputs>
+
+            <app-text-inputs [formControl]="registerForm.controls['datumRodjenja']" [type]="'date'"
+                [label]="'DatumRodjenja'"></app-text-inputs>
+            <app-text-inputs [formControl]="registerForm.controls['kontakt']" [label]="'Kontakt'"></app-text-inputs>
             <app-text-inputs [formControl]="registerForm.controls['email']" [label]="'Email'"></app-text-inputs>
             <app-text-inputs [formControl]="registerForm.controls['lozinka']" [type]="'password'"
                 [label]="'Lozinka'"></app-text-inputs>
-            <app-text-inputs [formControl]="registerForm.controls['idAdresaIsporuke']"
-                [label]="'Adresa'"></app-text-inputs>
 
             <div class="d-grid">
                 <button [disabled]="registerForm.invalid" class="btn btn-lg btn-secondary mt-3"

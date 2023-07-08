@@ -6,9 +6,9 @@ namespace HomeFloory.Repositories.Payment
     {
         Task<Korpa> CreateOrUpdatePaymentIntent(decimal idKorpa);
 
-        /*Task<Korpa> UpdatePaymentIntentSucceeded(string paymentIntent);
+        Task<Korpa> UpdatePaymentIntentSucceeded(string paymentIntent);
 
-        Task<Korpa> UpdatePaymentIntentFailed(string paymentIntent);*/
+        Task<Korpa> UpdatePaymentIntentFailed(string paymentIntent);
     
     }
 }

@@ -2,6 +2,9 @@
 {
     public class DodatiProizvodiDto
     {
+
+        public decimal IdDodatiProizvodi { get; set; }
+
         public decimal IdProizvod { get; set; }
 
         public decimal IdKorpa { get; set; }
@@ -10,9 +13,8 @@
 
         public decimal? Kolicina { get; set; }
 
-        public decimal? KolicinaPoM2 { get; set; }
 
-
+        public virtual Korpa? IdKorpaNavigation { get; set; } = null!;
         public virtual Proizvod IdProizvodNavigation { get; set; } = null!;
     }
 }

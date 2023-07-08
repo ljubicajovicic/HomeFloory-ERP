@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using HomeFloory.Models;
+using HomeFloory.Models.DodatiProizvodiDto;
 using HomeFloory.Models.KorpaDto;
 using HomeFloory.Repositories.KorpaRepo;
 using HomeFloory.Repositories.ProizvodRepo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Data;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace HomeFloory.Controllers
 {
@@ -22,8 +24,21 @@ namespace HomeFloory.Controllers
             this.mapper = mapper;
         }
 
+        [HttpGet("Korisnik")]
+        public async Task<ActionResult<IReadOnlyList<Korpa>>> GetKorpaKorisnik([FromQuery] string? filterOn, 
+            [FromQuery] decimal? filterQuery)
+        {
+            var korpa = await korpaRepo.GetKorpaKorisnik(filterOn, filterQuery);
+
+            if (korpa == null)
+            {
+                return NoContent();
+            }
+            //var proizvodDto = mapper.Map<List<Proizvod>>(proizvod);
+            return Ok(korpa);
+        }
+
         [HttpGet]
-        //[Authorize(Roles = "Registrovan, Admin")]
         public async Task<IActionResult> GetAllKorpa()
         {
             
@@ -39,7 +54,6 @@ namespace HomeFloory.Controllers
         //provera trigera za racunanje ukupne cene u okviru korpe
         [HttpGet]
         [Route("{IdKorpa}")]
-        //[Authorize(Roles = "Registrovan")]
         public async Task<IActionResult> GetKorpa(decimal IdKorpa)
         {
             var korpa = await korpaRepo.GetKorpa(IdKorpa);
@@ -63,7 +77,7 @@ namespace HomeFloory.Controllers
                     CenaDostave = addKorpaDto.CenaDostave,
                     UkupnaCena = addKorpaDto.UkupnaCena,
                     DodatiProizvodi = new List<DodatiProizvodi>(),
-                    IdPlacanje = 1,
+                    IdKorisnik = 1,
                     IdDostava = 1
                 };
                 korpa = await korpaRepo.AddKorpa(korpa);
@@ -84,16 +98,37 @@ namespace HomeFloory.Controllers
         {
             try
             {
-                var korpa = new Korpa()
-                {
-                    CenaDostave = updateKorpaDto.CenaDostave,
-                    UkupnaCena = updateKorpaDto.UkupnaCena,
-                    IdPlacanje = 1,
-                    IdDostava = updateKorpaDto.IdDostava,
-
-                };
-                korpa = await korpaRepo.UpdateKorpa(IdKorpa, korpa);
+                //var korpa = new Korpa()
+                var korpa = await korpaRepo.GetKorpa(IdKorpa);
                 if(korpa == null)
+                {
+                    return NotFound();
+                };
+
+                korpa.CenaDostave = updateKorpaDto.CenaDostave;
+                korpa.UkupnaCena = updateKorpaDto.UkupnaCena;
+                korpa.IdKorisnik = updateKorpaDto.IdKorisnik;
+                korpa.IdDostava = updateKorpaDto.IdDostava;
+                korpa.Datum = updateKorpaDto.Datum;
+                korpa.Status = updateKorpaDto.Status;
+                //korpa.DodatiProizvodi.Clear();
+                /*foreach (var dodatiProizvodDto in updateKorpaDto.DodatiProizvodi)
+                {
+                    var dodatiProizvod = new DodatiProizvodi
+                    {
+                        IdDodatiProizvodi = dodatiProizvodDto.IdDodatiProizvodi,
+                        Cena = dodatiProizvodDto.Cena,
+                        Kolicina = dodatiProizvodDto.Kolicina,
+                        IdKorpa = dodatiProizvodDto.IdKorpa,
+                        IdProizvod = dodatiProizvodDto.IdProizvod,
+                        IdKorpaNavigation = dodatiProizvodDto.IdKorpaNavigation,
+                        IdProizvodNavigation = dodatiProizvodDto.IdProizvodNavigation,
+                    };
+                    korpa.DodatiProizvodi.Add(dodatiProizvod);
+                }*/
+
+                korpa = await korpaRepo.UpdateKorpa(IdKorpa, korpa);
+                if (korpa == null)
                 {
                     return NotFound();
                 }

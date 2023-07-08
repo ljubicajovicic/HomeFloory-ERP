@@ -48,6 +48,7 @@ export class ChekoutPaymentComponent implements OnInit {
     if (!basket) return;
 
     const orderToCreate = this.getOrderToCreate(basket);
+    console.log("order to create", orderToCreate)
     if (!orderToCreate) return;
     this.checkoutService.createOrder(orderToCreate).subscribe({
       next: order => {
@@ -63,7 +64,7 @@ export class ChekoutPaymentComponent implements OnInit {
           console.log(result);
           if (result.paymentIntent) {
 
-            this.basketService.deleteLocalBasket();
+            //this.basketService.deleteBasket(basket);
             const navigationExtras: NavigationExtras = { state: order };
             this.router.navigate(['checkout/success'], navigationExtras)
           }
@@ -72,19 +73,28 @@ export class ChekoutPaymentComponent implements OnInit {
     })
   }
 
-  private getOrderToCreate(basket: Korpa) {
-    const deliveryMethodId = this.checkoutForm?.get('deliveryForm')?.get('tipDostave')?.value;
-    const deliveryPrice = this.checkoutForm?.get('deliveryForm')?.get('cenaUsluge')?.value;
-    const subtotal = this.basketService.getCurrentBasketValue()?.ukupnaCena;
+  private getOrderToCreate(basket: Partial<Korpa>) {
+    const deliveryMethodId = this.checkoutForm?.get('deliveryForm')?.get('idDostava')?.value;
 
-    const shipToAdress = this.checkoutForm?.get('addressForm')?.value as AdresaIsporuke
+    const basketValue = this.basketService.getCurrentBasketValue();
+    if (!basketValue) return;
 
-    //if (!deliveryMethodId || !shipToAdress) return;
+    const deliveryPrice = this.basketService.getShipping();
+    const subtotal = this.basketService.getTotal();
+    const korisnik = Number(localStorage.getItem('idKorisnika'))
+    const dodatiProizvodi = basketValue.dodatiProizvodi
+
+    console.log('idDostave: ', deliveryMethodId)
+    console.log('cenaDostave: ', deliveryPrice)
+    console.log('ukupna: ', subtotal)
     return {
-      cenaDostave: deliveryPrice,
-      ukupnaCena: subtotal,
-      idDostava: deliveryMethodId,
-      idPlacanje: 1
+      cenaDostave: deliveryPrice as number,
+      ukupnaCena: subtotal as number,
+      status: 'shipping',
+      datum: new Date().toISOString().substring(0, 10),
+      idDostava: Number(deliveryMethodId),
+      idKorisnik: korisnik,
+      dodatiProizvodi: dodatiProizvodi
     }
 
   }

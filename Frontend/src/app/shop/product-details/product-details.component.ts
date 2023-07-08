@@ -14,7 +14,7 @@ import { take } from 'rxjs';
 export class ProductDetailsComponent implements OnInit {
   product?: Proizvod;
   kolicina = 1
-  kolicinaUKorpi = 1
+  kolicinaUKorpi = 0
 
   constructor(private shopService: ShopService, private activatedRoute: ActivatedRoute, private basketService: BasketService) { }
 
@@ -65,6 +65,10 @@ export class ProductDetailsComponent implements OnInit {
 
   get buttonText() {
     return this.kolicinaUKorpi === 0 ? 'Dodaj u korpu' : 'Azuriraj korpu'
+  }
+
+  public getKolicina(): number {
+    return this.kolicina;
   }
 
 }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HomeFloory.Models;
 using HomeFloory.Models.ProizvodDto;
+using HomeFloory.Repositories.ProizvodjacRepo;
 using HomeFloory.Repositories.ProizvodRepo;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -21,7 +22,19 @@ namespace HomeFloory.Controllers
             this.proizvodRepo = proizvodRepo;
             this.mapper = mapper;
         }
-        
+
+        [HttpGet("NoParam")]
+        public async Task<IActionResult> GetProizvodNoParam()
+        {
+            var proizvodjac = await proizvodRepo.GetProizvodNoParam();
+            if (proizvodjac == null)
+            {
+                return NoContent();
+            }
+            var proizvodDto = mapper.Map<List<Proizvod>>(proizvodjac);
+            return Ok(proizvodDto);
+        }
+
         //api/ProizvodController?filterOn=Naziv&filterQuery=Track&sortBy=CenaPoM2&isAscending=true&pageNumber=1&pageSize=10
         [HttpGet]
         public async Task<ActionResult<IReadOnlyList<Proizvod>>> GetAllProizvod([FromQuery] string? search, [FromQuery] string? filterOn, [FromQuery] decimal? filterQuery, [FromQuery] string? filterOn2, 

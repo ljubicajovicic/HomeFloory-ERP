@@ -26,7 +26,6 @@ export class BasketComponent {
   }
 
   ngOnInit() {
-    // Subscribe to the basket source and update the 'basket' object
     this.basketService.basketSource$.subscribe(basket => {
       this.basket = basket || {}; // Assign the received basket or an empty object
     });

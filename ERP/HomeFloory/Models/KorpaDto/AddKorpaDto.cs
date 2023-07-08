@@ -11,9 +11,9 @@ namespace HomeFloory.Models.KorpaDto
 
         public List<DodatiProizvodi> DodatiProizvodi { get; set; }
 
-        [DefaultValue(1)]
-        public decimal? IdPlacanje { get; set; }
-        [DefaultValue(1)]
+        //[DefaultValue(1)]
+        public decimal IdKorisnik { get; set; }
+        //[DefaultValue(1)]
         public decimal IdDostava { get; set; }
     }
 }

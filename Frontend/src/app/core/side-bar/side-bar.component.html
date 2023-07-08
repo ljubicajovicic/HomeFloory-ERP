@@ -1,0 +1,8 @@
+<div class="bar" style="padding-top: 150px; 
+padding-bottom: 35px;">
+    <div class="sidebar-item" *ngFor="let item of sidebarlist; let i=index"
+        [ngClass]="{'sidebar-item-active':item.active,'sidebar-item':item}" (click)="this.changeRoute(i)"
+        routerLink="/admin/{{item.link}}">
+        <h4>{{item.label}}</h4>
+    </div>
+</div>

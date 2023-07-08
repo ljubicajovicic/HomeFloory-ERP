@@ -65,16 +65,17 @@ public partial class HomeFlooryDbContext : DbContext
 
         modelBuilder.Entity<DodatiProizvodi>(entity =>
         {
-            entity.HasKey(e => new { e.IdProizvod, e.IdKorpa });
+            //entity.HasKey(e => new { e.IdProizvod, e.IdKorpa });
+            entity.HasKey(e => e.IdDodatiProizvodi);
 
             entity.ToTable("DodatiProizvodi", tb => tb.HasTrigger("triger_korpa"));
             entity.ToTable("DodatiProizvodi", tb => tb.HasTrigger("triger_uklanjanje_proizvoda"));
 
+            entity.Property(e => e.IdDodatiProizvodi).HasColumnType("numeric(5, 0)");
             entity.Property(e => e.IdProizvod).HasColumnType("numeric(5, 0)");
             entity.Property(e => e.IdKorpa).HasColumnType("numeric(5, 0)");
             entity.Property(e => e.Cena).HasColumnType("decimal(12, 2)");
             entity.Property(e => e.Kolicina).HasColumnType("numeric(5, 0)");
-            entity.Property(e => e.KolicinaPoM2).HasColumnType("decimal(12, 3)");
 
             entity.HasOne(d => d.IdKorpaNavigation).WithMany(p => p.DodatiProizvodi)
                 .HasForeignKey(d => d.IdKorpa)
@@ -163,7 +164,7 @@ public partial class HomeFlooryDbContext : DbContext
             entity.Property(e => e.IdKorpa).HasColumnType("numeric(5, 0)");
             entity.Property(e => e.CenaDostave).HasColumnType("decimal(6, 2)");
             entity.Property(e => e.IdDostava).HasColumnType("numeric(5, 0)");
-            entity.Property(e => e.IdPlacanje).HasColumnType("numeric(5, 0)");
+            entity.Property(e => e.IdKorisnik).HasColumnType("numeric(5, 0)");
             entity.Property(e => e.UkupnaCena).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.Datum).HasColumnType("date");
             entity.Property(e => e.Status)
@@ -181,8 +182,8 @@ public partial class HomeFlooryDbContext : DbContext
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Korpa_Dostava");
 
-            entity.HasOne(d => d.IdPlacanjeNavigation).WithMany(p => p.Korpe)
-                .HasForeignKey(d => d.IdPlacanje)
+            entity.HasOne(d => d.IdKorisnikNavigation).WithMany(p => p.Korpe)
+                .HasForeignKey(d => d.IdKorisnik)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Korpa_Placanje");
         });

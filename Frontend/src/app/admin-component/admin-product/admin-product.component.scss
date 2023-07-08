@@ -1,0 +1,77 @@
+.my-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.my-table thead {
+    background-color: #2d05052c;
+    font-size: 14px;
+
+}
+
+.my-table th {
+    text-align: center;
+    font-size: 15px;
+}
+
+.my-table td {
+    padding: 6px;
+    border: 1px solid #ddd;
+    //text-align: left;
+    font-size: 14px;
+}
+
+.my-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.edit-button {
+    font-size: 1rem;
+    padding: 8px 16px;
+    border-radius: 5px;
+    border: 2px solid white;
+    /* Add white border */
+}
+
+.update-button {
+    background-color: rgba(199, 115, 59, 0.866);
+    color: white;
+    text-align: center;
+
+}
+
+.text-cell {
+    text-align: left;
+}
+
+.button-cell {
+    text-align: center;
+}
+
+.delete-button {
+    background-color: rgba(135, 78, 40, 0.866);
+    color: white;
+    text-align: center;
+}
+
+.my-table td.text-cell {
+    padding: 6px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+.my-table td.text-cell.description-cell {
+    max-width: 300px;
+    /* Adjust the width as needed */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.my-table td.text-cell.picture-url-cell {
+    max-width: 100px;
+    /* Adjust the width as needed */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
